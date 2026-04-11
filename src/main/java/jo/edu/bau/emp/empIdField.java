@@ -1,5 +1,7 @@
+package jo.edu.bau.emp;
 
-import java.sql.Connection;
+
+import java.awt.event.KeyAdapter;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -10,9 +12,9 @@ import java.sql.Connection;
  *
  * @author User
  */
-class DatabaseConnection {
+public class empIdField {
 
-    static Connection getConnection() {
+    public static void addKeyListener(KeyAdapter keyAdapter) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     

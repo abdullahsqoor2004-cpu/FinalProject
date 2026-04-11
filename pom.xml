@@ -13,11 +13,14 @@
     <name>FinalProject</name>
      <dependencies>
         <dependency>
-            <groupId>com.oracle</groupId>
-            <artifactId>ojdbc14</artifactId>
-            <version>10.2.0</version>
-            <scope>system</scope>
-            <systemPath>C:\oraclexe\app\oracle\product\10.2.0\server\jdbc\lib\ojdbc14.jar</systemPath>
-        </dependency>
+    <groupId>com.oracle</groupId>
+    <artifactId>ojdbc14</artifactId>
+    <version>10.2.0</version>
+</dependency>
+<dependency>
+    <groupId>com.toedter</groupId>
+    <artifactId>jcalendar</artifactId>
+    <version>1.4</version>
+</dependency>
     </dependencies>
 </project>

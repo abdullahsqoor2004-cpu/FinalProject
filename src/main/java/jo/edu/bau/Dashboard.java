@@ -1,3 +1,11 @@
+package jo.edu.bau;
+
+import jo.edu.bau.settings.ThemeManager;
+import jo.edu.bau.settings.Settings;
+import jo.edu.bau.pay.Payroll;
+import jo.edu.bau.attendance.Attendance;
+import jo.edu.bau.emp.Employees;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/AWTForms/Frame.java to edit this template
@@ -14,6 +22,7 @@ public class Dashboard extends java.awt.Frame {
      */
     public Dashboard() {
         initComponents();
+        ThemeManager.applyTheme(jPanel1);
     }
 
     /**
