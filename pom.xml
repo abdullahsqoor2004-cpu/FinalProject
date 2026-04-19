@@ -11,7 +11,14 @@
         <exec.mainClass>com.mycompany.final_project.Final_Project</exec.mainClass>
     </properties>
     <name>FinalProject</name>
-     <dependencies>
+    <repositories>
+        <repository>
+            <id>unknown-jars-temp-repo</id>
+            <name>A temporary repository created by NetBeans for libraries and jars it could not identify. Please replace the dependencies in this repository with correct ones and delete this repository.</name>
+            <url>file:${project.basedir}/lib</url>
+        </repository>
+    </repositories>
+    <dependencies>
         <dependency>
     <groupId>com.oracle</groupId>
     <artifactId>ojdbc14</artifactId>
@@ -22,5 +29,20 @@
     <artifactId>jcalendar</artifactId>
     <version>1.4</version>
 </dependency>
+<dependency>
+    <groupId>com.formdev</groupId>
+    <artifactId>flatlaf</artifactId>
+    <version>3.4</version>
+</dependency>
+          <dependency>
+               <groupId>org.netbeans.external</groupId>
+               <artifactId>AbsoluteLayout</artifactId>
+               <version>RELEASE290</version>
+          </dependency>
+        <dependency>
+            <groupId>unknown.binary</groupId>
+            <artifactId>jfreechart-1.0.19</artifactId>
+            <version>SNAPSHOT</version>
+        </dependency>
     </dependencies>
 </project>

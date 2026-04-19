@@ -1,96 +1,37 @@
+
 package jo.edu.bau.emp;
-
-
+import jo.edu.bau.utils.DatabaseConnection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.SwingWorker;
-import jo.edu.bau.Dashboard;
-import jo.edu.bau.utils.DatabaseConnection;
 import jo.edu.bau.settings.ThemeManager;
 
+public class Employees extends javax.swing.JPanel {
 
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/AWTForms/Frame.java to edit this template
- */
-
-/**
- *
- * @author User
- */
-public class Employees extends java.awt.Frame {
-private javax.swing.JButton jButton5;
-    /**
-     * Creates new form Employees
-     */
+ 
     public Employees() {
         initComponents();
-                setSize(1280,720);
-                jButton5 = new javax.swing.JButton("Leave Requests");
-jButton5.addActionListener(e -> jButton6ActionPerformed(null));
-jPanel1.add(jButton5);
-                loadEmployees(jTable1);
-                                ThemeManager.applyTheme(jPanel1);
+        jButton1.setBackground(new java.awt.Color(30, 100, 200));
+jButton1.setForeground(java.awt.Color.WHITE);
+jButton1.setOpaque(true);
 
-                        jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
-        public void focusGained(java.awt.event.FocusEvent evt) {
-            if (jTextField1.getText().equals("🔍 Search Employee")) {
-                jTextField1.setText("");
-            }
-        }
-        public void focusLost(java.awt.event.FocusEvent evt) {
-            if (jTextField1.getText().trim().isEmpty()) {
-                jTextField1.setText("🔍 Search Employee");
-                loadEmployees(jTable1);
-            }
-        }
-    });
-                         jTextField1.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
-        public void insertUpdate(javax.swing.event.DocumentEvent e) { search(); }
-        public void removeUpdate(javax.swing.event.DocumentEvent e) { search(); }
-        public void changedUpdate(javax.swing.event.DocumentEvent e) {}
-        
-        private void search() {
-            javax.swing.SwingUtilities.invokeLater(() -> {
-                String input = jTextField1.getText().trim();
-                if (input.isEmpty() || input.equals("🔍 Search Employee")) {
-                    loadEmployees(jTable1);
-                    return;
-                }
-                try {
-                    int empId = Integer.parseInt(input);
-                    String sql = "SELECT PAYROLL_ID, EMP_ID, FIRST_NAME, LAST_NAME, JOB_ID, BASIC_SALARY, PAY_DATE, ALLOWANCE, DEDUCTION FROM PAYROLL WHERE EMP_ID = ?";
-                    PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement(sql);
-                    ps.setInt(1, empId);
-                    ResultSet rs = ps.executeQuery();
-                    DefaultTableModel model = new DefaultTableModel(
-                        new String[]{"Payroll ID","Emp ID","First Name","Last Name","Job ID","Basic Salary","Pay Date","Allowance","Deduction"}, 0
-                    );
-                    boolean found = false;
-                    while (rs.next()) {
-                        found = true;
-                        model.addRow(new Object[]{
-                            rs.getInt("PAYROLL_ID"), rs.getInt("EMP_ID"),
-                            rs.getString("FIRST_NAME"), rs.getString("LAST_NAME"),
-                            rs.getString("JOB_ID"), rs.getDouble("BASIC_SALARY"),
-                            rs.getDate("PAY_DATE"), rs.getDouble("ALLOWANCE"),
-                            rs.getDouble("DEDUCTION")
-                        });
-                    }
-                    jTable1.setModel(model);
-                    if (!found) {
-                        javax.swing.JOptionPane.showMessageDialog(null, "No Data Found", "Search Result", javax.swing.JOptionPane.INFORMATION_MESSAGE);
-                    }
-                } catch (NumberFormatException ex) {
-                    // لسا عم يكتب
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            });
-        }
-    });
+jButton3.setBackground(new java.awt.Color(30, 100, 200));
+jButton3.setForeground(java.awt.Color.WHITE);
+jButton3.setOpaque(true);
+
+jButton4.setBackground(new java.awt.Color(30, 100, 200));
+jButton4.setForeground(java.awt.Color.WHITE);
+jButton4.setOpaque(true);
+
+jButton6.setBackground(new java.awt.Color(30, 100, 200));
+jButton6.setForeground(java.awt.Color.WHITE);
+jButton6.setOpaque(true);
+        loadEmployees(jTable1);
+ this.setLayout(new java.awt.BorderLayout());
+    this.add(jPanel1, java.awt.BorderLayout.CENTER);
+    
+
 
     }
 
@@ -99,6 +40,7 @@ jPanel1.add(jButton5);
      * WARNING: Do NOT modify this code. The content of this method is always
      * regenerated by the Form Editor.
      */
+    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -108,18 +50,13 @@ jPanel1.add(jButton5);
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
 
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                exitForm(evt);
-            }
-        });
+        setPreferredSize(new java.awt.Dimension(869, 690));
 
-        jPanel1.setPreferredSize(new java.awt.Dimension(1024, 480));
+        jPanel1.setPreferredSize(new java.awt.Dimension(869, 690));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("Employees");
@@ -175,9 +112,6 @@ jPanel1.add(jButton5);
         });
         jScrollPane1.setViewportView(jTable1);
 
-        jButton2.setText("Back To Dashboard");
-        jButton2.addActionListener(this::jButton2ActionPerformed);
-
         jButton3.setText("Edit");
         jButton3.addActionListener(this::jButton3ActionPerformed);
 
@@ -197,7 +131,6 @@ jPanel1.add(jButton5);
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 285, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -211,11 +144,7 @@ jPanel1.add(jButton5);
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButton2))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -230,402 +159,361 @@ jPanel1.add(jButton5);
                             .addComponent(jButton4)
                             .addComponent(jButton6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 485, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE))
         );
 
-        add(jPanel1, java.awt.BorderLayout.CENTER);
-
-        pack();
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1012, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap()))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 650, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 629, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * Exit the Application
-     */
-    private void exitForm(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_exitForm
-        System.exit(0);
-    }//GEN-LAST:event_exitForm
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        Dashboard dsh = new Dashboard();
-        
-        dsh.show();
-        
-        dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-
-    AddEmp dialog = new AddEmp(null, true,this);
-    dialog.setLocationRelativeTo(null);
-    dialog.setVisible(true);       
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
         String input = jTextField1.getText().trim();
-    
-    if (input.isEmpty()) {
-        loadEmployees(jTable1); // يرجع كل الموظفين
-        return;
-    }
-    
-    try {
-        int empId = Integer.parseInt(input);
-        
-        String sql = "SELECT EMP_ID, FIRST_NAME, LAST_NAME, JOB_ID, DEPARTMENT, SALARY, HIRE_DATE, STATUS FROM EMPLOYEE WHERE EMP_ID = ?";
-        PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement(sql);
-        ps.setInt(1, empId);
-        ResultSet rs = ps.executeQuery();
-        
-        DefaultTableModel model = new DefaultTableModel(
-            new String[]{"EMP_ID","First Name","Last Name","Job","Department","Salary","Hire Date","Status"}, 0
-        );
-        
-        if (rs.next()) {
-            model.addRow(new Object[]{
-                rs.getInt("EMP_ID"), rs.getString("FIRST_NAME"),
-                rs.getString("LAST_NAME"), rs.getString("JOB_ID"),
-                rs.getString("DEPARTMENT"), rs.getDouble("SALARY"),
-                rs.getDate("HIRE_DATE"), rs.getString("STATUS")
-            });
-            jTable1.setModel(model);
-        } else {
-            jTable1.setModel(model); // جدول فاضي
-            javax.swing.JOptionPane.showMessageDialog(this, "No Data Found", "Search Result", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+
+        if (input.isEmpty()) {
+            loadEmployees(jTable1);
+            return;
         }
-        
-    } catch (NumberFormatException e) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Please enter a valid Employee ID (numbers only)", "Invalid Input", javax.swing.JOptionPane.WARNING_MESSAGE);
-    } catch (Exception e) {
-        e.printStackTrace();
-        javax.swing.JOptionPane.showMessageDialog(this, e.getMessage());
-    }
+
+        try {
+            int empId = Integer.parseInt(input);
+
+            String sql = "SELECT EMP_ID, FIRST_NAME, LAST_NAME, JOB_ID, DEPARTMENT, SALARY, HIRE_DATE, STATUS FROM EMPLOYEE WHERE EMP_ID = ?";
+            PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement(sql);
+            ps.setInt(1, empId);
+            ResultSet rs = ps.executeQuery();
+
+            DefaultTableModel model = new DefaultTableModel(
+                new String[]{"EMP_ID","First Name","Last Name","Job","Department","Salary","Hire Date","Status"}, 0
+            );
+
+            if (rs.next()) {
+                model.addRow(new Object[]{
+                    rs.getInt("EMP_ID"), rs.getString("FIRST_NAME"),
+                    rs.getString("LAST_NAME"), rs.getString("JOB_ID"),
+                    rs.getString("DEPARTMENT"), rs.getDouble("SALARY"),
+                    rs.getDate("HIRE_DATE"), rs.getString("STATUS")
+                });
+                jTable1.setModel(model);
+            } else {
+                jTable1.setModel(model);
+                javax.swing.JOptionPane.showMessageDialog(this, "No Data Found", "Search Result", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            }
+
+        } catch (NumberFormatException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Please enter a valid Employee ID (numbers only)", "Invalid Input", javax.swing.JOptionPane.WARNING_MESSAGE);
+        } catch (Exception e) {
+            e.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, e.getMessage());
+        }
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-        int selectedRow = jTable1.getSelectedRow();
-    if (selectedRow == -1) {
-        javax.swing.JOptionPane.showMessageDialog(this, "الرجاء تحديد موظف أولاً", "تنبيه", javax.swing.JOptionPane.WARNING_MESSAGE);
-        return;
-    }
-    showEditDialog(selectedRow);
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
+java.awt.Frame parentFrame = (java.awt.Frame) javax.swing.SwingUtilities.getWindowAncestor(this);
+AddEmp dialog = new AddEmp(parentFrame, true, this);
+dialog.setLocationRelativeTo(null);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        int selectedRow = jTable1.getSelectedRow();
+        if (selectedRow == -1) {
+            javax.swing.JOptionPane.showMessageDialog(this, "الرجاء تحديد موظف أولاً", "تنبيه", javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        showEditDialog(selectedRow);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    int selectedRow = jTable1.getSelectedRow();
+        int selectedRow = jTable1.getSelectedRow();
+
+        if (selectedRow == -1) {
+            javax.swing.JOptionPane.showMessageDialog(this, "الرجاء تحديد موظف أولاً", "تنبيه", javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        String empId = jTable1.getValueAt(selectedRow, 0).toString();
+        String firstName = jTable1.getValueAt(selectedRow, 1).toString();
+        String lastName = jTable1.getValueAt(selectedRow, 2).toString();
+
+        int confirm = javax.swing.JOptionPane.showConfirmDialog(
+            this,
+            "هل أنت متأكد من حذف الموظف بشكل نهائي؟\n" + firstName + " " + lastName,
+            "تأكيد الحذف",
+            javax.swing.JOptionPane.YES_NO_OPTION,
+            javax.swing.JOptionPane.WARNING_MESSAGE
+        );
+
+        if (confirm == javax.swing.JOptionPane.YES_OPTION) {
+            try {
+                java.sql.Connection conn = DatabaseConnection.getConnection();
+
+                java.sql.PreparedStatement ps1 = conn.prepareStatement("DELETE FROM PAYROLL WHERE EMP_ID=?");
+                ps1.setInt(1, Integer.parseInt(empId));
+                ps1.executeUpdate();
+                ps1.close();
+
+                java.sql.PreparedStatement ps2 = conn.prepareStatement("DELETE FROM ATTENDANCE_LEAVE WHERE EMP_ID=?");
+                ps2.setInt(1, Integer.parseInt(empId));
+                ps2.executeUpdate();
+                ps2.close();
+
+                java.sql.PreparedStatement ps3 = conn.prepareStatement("DELETE FROM EMPLOYEE WHERE EMP_ID=?");
+                ps3.setInt(1, Integer.parseInt(empId));
+                ps3.executeUpdate();
+                ps3.close();
+
+                javax.swing.JOptionPane.showMessageDialog(this, "The employee was successfully deleted", "Success", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+                loadEmployees(jTable1);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                javax.swing.JOptionPane.showMessageDialog(this, e.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+void refreshTable() {
+    loadEmployees(jTable1);
     
-    if (selectedRow == -1) {
-        javax.swing.JOptionPane.showMessageDialog(this, "الرجاء تحديد موظف أولاً", "تنبيه", javax.swing.JOptionPane.WARNING_MESSAGE);
-        return;
+    java.awt.Window win = javax.swing.SwingUtilities.getWindowAncestor(this);
+    if (win instanceof jo.edu.bau.Dashboard) {
+        jo.edu.bau.Dashboard dash = (jo.edu.bau.Dashboard) win;
+        dash.refreshDashboard();
     }
-    
-    String empId = jTable1.getValueAt(selectedRow, 0).toString();
-    String firstName = jTable1.getValueAt(selectedRow, 1).toString();
-    String lastName = jTable1.getValueAt(selectedRow, 2).toString();
-    
-    int confirm = javax.swing.JOptionPane.showConfirmDialog(
-        this,
-        "هل أنت متأكد من حذف الموظف بشكل نهائي؟\n" + firstName + " " + lastName,
-        "تأكيد الحذف",
-        javax.swing.JOptionPane.YES_NO_OPTION,
-        javax.swing.JOptionPane.WARNING_MESSAGE
-    );
-    
-    if (confirm == javax.swing.JOptionPane.YES_OPTION) {
+}
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        javax.swing.JDialog dialog = new javax.swing.JDialog((java.awt.Frame) null, "Leave Requests", true);
+        dialog.setSize(800, 400);
+        dialog.setLocationRelativeTo(this);
+        dialog.setLayout(new java.awt.BorderLayout());
+
+        javax.swing.JTable table = new javax.swing.JTable();
+        javax.swing.JScrollPane scroll = new javax.swing.JScrollPane(table);
+
         try {
-            java.sql.Connection conn = DatabaseConnection.getConnection();
-            
-            java.sql.PreparedStatement ps1 = conn.prepareStatement("DELETE FROM PAYROLL WHERE EMP_ID=?");
-            ps1.setInt(1, Integer.parseInt(empId));
-            ps1.executeUpdate();
-            ps1.close();
-            
-            java.sql.PreparedStatement ps2 = conn.prepareStatement("DELETE FROM ATTENDANCE_LEAVE WHERE EMP_ID=?");
-            ps2.setInt(1, Integer.parseInt(empId));
-            ps2.executeUpdate();
-            ps2.close();
-            
-            java.sql.PreparedStatement ps3 = conn.prepareStatement("DELETE FROM EMPLOYEE WHERE EMP_ID=?");
-            ps3.setInt(1, Integer.parseInt(empId));
-            ps3.executeUpdate();
-            ps3.close();
-            
-            javax.swing.JOptionPane.showMessageDialog(this, "The employee was successfully deleted", "Success", javax.swing.JOptionPane.INFORMATION_MESSAGE);
-            loadEmployees(jTable1);
-            
+            java.sql.PreparedStatement ps = DatabaseConnection.getConnection()
+            .prepareStatement("SELECT REQUEST_ID, EMP_NAME, DEPARTMENT, LEAVE_TYPE, START_DATE, END_DATE, STATUS FROM LEAVE_REQUESTS");
+            java.sql.ResultSet rs = ps.executeQuery();
+            DefaultTableModel model = new DefaultTableModel(
+                new String[]{"ID","Employee","Department","Leave Type","Start","End","Status"}, 0
+            );
+            while (rs.next()) {
+                model.addRow(new Object[]{
+                    rs.getInt("REQUEST_ID"), rs.getString("EMP_NAME"),
+                    rs.getString("DEPARTMENT"), rs.getString("LEAVE_TYPE"),
+                    rs.getString("START_DATE"), rs.getString("END_DATE"),
+                    rs.getString("STATUS")
+                });
+            }
+            table.setModel(model);
         } catch (Exception e) {
             e.printStackTrace();
-            javax.swing.JOptionPane.showMessageDialog(this, e.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
-    }
-    }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-        javax.swing.JDialog dialog = new javax.swing.JDialog((java.awt.Frame) null, "Leave Requests", true);
-    dialog.setSize(800, 400);
-    dialog.setLocationRelativeTo(this);
-    dialog.setLayout(new java.awt.BorderLayout());
+        javax.swing.JButton btnApprove = new javax.swing.JButton("✔ Approve");
+        javax.swing.JButton btnReject = new javax.swing.JButton("✘ Reject");
+        
+        btnReject.addActionListener(e -> {
+            int row = table.getSelectedRow();
+            if (row == -1) {
+                javax.swing.JOptionPane.showMessageDialog(dialog, "Select a request first");
+                return;
+            }
+            int reqId = (int) table.getValueAt(row, 0);
+            try {
+                java.sql.PreparedStatement ps = DatabaseConnection.getConnection()
+                .prepareStatement("UPDATE LEAVE_REQUESTS SET STATUS='Rejected' WHERE REQUEST_ID=?");
+                ps.setInt(1, reqId);
+                ps.executeUpdate();
+                ps.close();
 
-    javax.swing.JTable table = new javax.swing.JTable();
-    javax.swing.JScrollPane scroll = new javax.swing.JScrollPane(table);
+                table.setValueAt("Rejected", row, 6);
+                javax.swing.JOptionPane.showMessageDialog(dialog, "Rejected successfully ✔");
 
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                javax.swing.JOptionPane.showMessageDialog(dialog, ex.getMessage());
+            }
+        });
+        btnReject.addActionListener(e -> {
+            int row = table.getSelectedRow();
+            if (row == -1) {
+                javax.swing.JOptionPane.showMessageDialog(dialog, "Select a request first");
+                return;
+            }
+            int reqId = (int) table.getValueAt(row, 0);
+            try {
+                java.sql.PreparedStatement ps = DatabaseConnection.getConnection()
+                .prepareStatement("UPDATE LEAVE_REQUESTS SET STATUS='Rejected' WHERE REQUEST_ID=?");
+                ps.setInt(1, reqId);
+                ps.executeUpdate();
+                ps.close();
+
+                table.setValueAt("Rejected", row, 6);
+                javax.swing.JOptionPane.showMessageDialog(dialog, "Rejected successfully ✔");
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                javax.swing.JOptionPane.showMessageDialog(dialog, ex.getMessage());
+            }
+        });
+        javax.swing.JPanel btnPanel = new javax.swing.JPanel();
+        btnPanel.add(btnApprove);
+        btnPanel.add(btnReject);
+
+        dialog.add(scroll, java.awt.BorderLayout.CENTER);
+        dialog.add(btnPanel, java.awt.BorderLayout.SOUTH);
+        dialog.setVisible(true);
+        }
+
+        private void updateLeaveStatus(int reqId, String status, javax.swing.JTable table) {
+            try {
+                java.sql.PreparedStatement ps = DatabaseConnection.getConnection()
+                .prepareStatement("UPDATE LEAVE_REQUESTS SET STATUS=? WHERE REQUEST_ID=?");
+                ps.setString(1, status);
+                ps.setInt(2, reqId);
+                ps.executeUpdate();
+                ps.close();
+
+                if (status.equals("Approved")) {
+                    java.sql.PreparedStatement ps2 = DatabaseConnection.getConnection()
+                    .prepareStatement("UPDATE ATTENDANCE_LEAVE SET STATUS='On Leave' WHERE FIRST_NAME || ' ' || LAST_NAME = (SELECT EMP_NAME FROM LEAVE_REQUESTS WHERE REQUEST_ID=?)");
+                    ps2.setInt(1, reqId);
+                    ps2.executeUpdate();
+                    ps2.close();
+                }
+
+                javax.swing.JOptionPane.showMessageDialog(null, "Status updated to: " + status);
+
+                for (int i = 0; i < table.getRowCount(); i++) {
+                    if ((int) table.getValueAt(i, 0) == reqId) {
+                        table.setValueAt(status, i, 6);
+                        break;
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                javax.swing.JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+    }//GEN-LAST:event_jButton6ActionPerformed
+public void loadEmployees(javax.swing.JTable table) {
     try {
-        java.sql.PreparedStatement ps = DatabaseConnection.getConnection()
-            .prepareStatement("SELECT REQUEST_ID, EMP_NAME, DEPARTMENT, LEAVE_TYPE, START_DATE, END_DATE, STATUS FROM LEAVE_REQUESTS");
-        java.sql.ResultSet rs = ps.executeQuery();
+        String sql = "SELECT EMP_ID, FIRST_NAME, LAST_NAME, JOB_ID, DEPARTMENT, SALARY, HIRE_DATE, STATUS FROM EMPLOYEE";
+        PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+
         DefaultTableModel model = new DefaultTableModel(
-            new String[]{"ID","Employee","Department","Leave Type","Start","End","Status"}, 0
+            new String[]{"EMP_ID","First Name","Last Name","Job","Department","Salary","Hire Date","Status"}, 0
         );
         while (rs.next()) {
             model.addRow(new Object[]{
-                rs.getInt("REQUEST_ID"), rs.getString("EMP_NAME"),
-                rs.getString("DEPARTMENT"), rs.getString("LEAVE_TYPE"),
-                rs.getString("START_DATE"), rs.getString("END_DATE"),
+                rs.getInt("EMP_ID"),
+                rs.getString("FIRST_NAME"),
+                rs.getString("LAST_NAME"),
+                rs.getString("JOB_ID"),
+                rs.getString("DEPARTMENT"),
+                rs.getDouble("SALARY"),
+                rs.getDate("HIRE_DATE"),
                 rs.getString("STATUS")
             });
         }
         table.setModel(model);
     } catch (Exception e) {
         e.printStackTrace();
+        javax.swing.JOptionPane.showMessageDialog(this, e.getMessage());
     }
-
-    javax.swing.JButton btnApprove = new javax.swing.JButton("✔ Approve");
-    javax.swing.JButton btnReject = new javax.swing.JButton("✘ Reject");
-
-    btnApprove.addActionListener(e -> {
-   int row = table.getSelectedRow();
-    if (row == -1) { 
-        javax.swing.JOptionPane.showMessageDialog(dialog, "Select a request first"); 
-        return; 
-    }
-    int reqId = (int) table.getValueAt(row, 0);
-    try {
-        java.sql.PreparedStatement ps = DatabaseConnection.getConnection()
-            .prepareStatement("UPDATE LEAVE_REQUESTS SET STATUS='Approved' WHERE REQUEST_ID=?");
-        ps.setInt(1, reqId);
-        ps.executeUpdate();
-        ps.close();
-        
-        table.setValueAt("Approved", row, 6);
-        javax.swing.JOptionPane.showMessageDialog(dialog, "Approved successfully ✔");
-        
-    } catch (Exception ex) {
-        ex.printStackTrace();
-        javax.swing.JOptionPane.showMessageDialog(dialog, ex.getMessage());
-    }
-});
-btnReject.addActionListener(e -> {
-    int row = table.getSelectedRow();
-    if (row == -1) { 
-        javax.swing.JOptionPane.showMessageDialog(dialog, "Select a request first"); 
-        return; 
-    }
-    int reqId = (int) table.getValueAt(row, 0);
-    try {
-        java.sql.PreparedStatement ps = DatabaseConnection.getConnection()
-            .prepareStatement("UPDATE LEAVE_REQUESTS SET STATUS='Rejected' WHERE REQUEST_ID=?");
-        ps.setInt(1, reqId);
-        ps.executeUpdate();
-        ps.close();
-        
-        table.setValueAt("Rejected", row, 6);
-        javax.swing.JOptionPane.showMessageDialog(dialog, "Rejected successfully ✔");
-        
-    } catch (Exception ex) {
-        ex.printStackTrace();
-        javax.swing.JOptionPane.showMessageDialog(dialog, ex.getMessage());
-    }
-});
-btnReject.addActionListener(e -> {
-    int row = table.getSelectedRow();
-    if (row == -1) { 
-        javax.swing.JOptionPane.showMessageDialog(dialog, "Select a request first"); 
-        return; 
-    }
-    int reqId = (int) table.getValueAt(row, 0);
-    try {
-        java.sql.PreparedStatement ps = DatabaseConnection.getConnection()
-            .prepareStatement("UPDATE LEAVE_REQUESTS SET STATUS='Rejected' WHERE REQUEST_ID=?");
-        ps.setInt(1, reqId);
-        ps.executeUpdate();
-        ps.close();
-        
-        table.setValueAt("Rejected", row, 6);
-        javax.swing.JOptionPane.showMessageDialog(dialog, "Rejected successfully ✔");
-        
-    } catch (Exception ex) {
-        ex.printStackTrace();
-        javax.swing.JOptionPane.showMessageDialog(dialog, ex.getMessage());
-    }
-});
-    javax.swing.JPanel btnPanel = new javax.swing.JPanel();
-    btnPanel.add(btnApprove);
-    btnPanel.add(btnReject);
-
-    dialog.add(scroll, java.awt.BorderLayout.CENTER);
-    dialog.add(btnPanel, java.awt.BorderLayout.SOUTH);
-    dialog.setVisible(true);
-}
-
-private void updateLeaveStatus(int reqId, String status, javax.swing.JTable table) {
-    try {
-        java.sql.PreparedStatement ps = DatabaseConnection.getConnection()
-            .prepareStatement("UPDATE LEAVE_REQUESTS SET STATUS=? WHERE REQUEST_ID=?");
-        ps.setString(1, status);
-        ps.setInt(2, reqId);
-        ps.executeUpdate();
-        ps.close();
-
-        if (status.equals("Approved")) {
-            // حدّث ATTENDANCE_LEAVE
-            java.sql.PreparedStatement ps2 = DatabaseConnection.getConnection()
-                .prepareStatement("UPDATE ATTENDANCE_LEAVE SET STATUS='On Leave' WHERE FIRST_NAME || ' ' || LAST_NAME = (SELECT EMP_NAME FROM LEAVE_REQUESTS WHERE REQUEST_ID=?)");
-            ps2.setInt(1, reqId);
-            ps2.executeUpdate();
-            ps2.close();
-        }
-
-        javax.swing.JOptionPane.showMessageDialog(null, "Status updated to: " + status);
-
-        // رفرش الجدول
-        for (int i = 0; i < table.getRowCount(); i++) {
-            if ((int) table.getValueAt(i, 0) == reqId) {
-                table.setValueAt(status, i, 6);
-                break;
-            }
-        }
-    } catch (Exception e) {
-        e.printStackTrace();
-        javax.swing.JOptionPane.showMessageDialog(null, e.getMessage());
-    }
-
-    }//GEN-LAST:event_jButton6ActionPerformed
-public void loadEmployees(javax.swing.JTable table) {    try {
-        String sql = "SELECT EMP_ID, FIRST_NAME, LAST_NAME, JOB_ID, DEPARTMENT, SALARY, HIRE_DATE, STATUS FROM EMPLOYEE";
-        PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement(sql);
-        ResultSet rs = ps.executeQuery();
-
-        DefaultTableModel model = new DefaultTableModel(
-            new String[]{"ID","First Name","Last Name","Job","Department","Salary","Hire Date","Status"}, 0
-        );
-        while (rs.next()) {
-            model.addRow(new Object[]{
-                rs.getInt("EMP_ID"), rs.getString("FIRST_NAME"),
-                rs.getString("LAST_NAME"), rs.getString("JOB_ID"),
-                rs.getString("DEPARTMENT"), rs.getDouble("SALARY"),
-                rs.getDate("HIRE_DATE"), rs.getString("STATUS")
-            });
-        }
-        table.setModel(model);
-    } catch (Exception e) { e.printStackTrace(); }
-}
-public void refreshTable() {
-    loadEmployees(jTable1);
 }
 private void showEditDialog(int selectedRow) {
-    String[] fieldNames = {"First Name", "Last Name", "Job ID", "Department", "Salary", "Hire Date (YYYY-MM-DD)", "Status"};
-    String[] columnNames = {"FIRST_NAME", "LAST_NAME", "JOB_ID", "DEPARTMENT", "SALARY", "HIRE_DATE", "STATUS"};
-    
-    // جيب القيم الحالية من الجدول
-    String empId = jTable1.getValueAt(selectedRow, 0).toString();
-    final String[] values = new String[fieldNames.length];
-    for (int i = 0; i < fieldNames.length; i++) {
-        Object val = jTable1.getValueAt(selectedRow, i + 1);
-        values[i] = val != null ? val.toString() : "";
-    }
-    
-    final int[] currentField = {0};
-    
-    javax.swing.JDialog dialog = new javax.swing.JDialog((java.awt.Frame) javax.swing.SwingUtilities.getWindowAncestor(this), true);
-    dialog.setTitle("Edit Employee");
-    dialog.setSize(350, 180);
-    dialog.setLocationRelativeTo(this);
-    dialog.setLayout(new java.awt.BorderLayout(10, 10));
-    
-    javax.swing.JLabel lblField = new javax.swing.JLabel(fieldNames[0] + ":");
-    lblField.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 15, 0, 15));
-    
-    javax.swing.JTextField txtValue = new javax.swing.JTextField(values[0]);
-    txtValue.setBorder(javax.swing.BorderFactory.createCompoundBorder(
-        javax.swing.BorderFactory.createEmptyBorder(0, 15, 0, 15),
-        txtValue.getBorder()
-    ));
-    
-    javax.swing.JPanel centerPanel = new javax.swing.JPanel(new java.awt.GridLayout(2, 1, 5, 5));
-    centerPanel.add(lblField);
-    centerPanel.add(txtValue);
-    
-    javax.swing.JButton btnNext = new javax.swing.JButton("Next");
+    int empId = Integer.parseInt(jTable1.getValueAt(selectedRow, 0).toString());
+    String firstName = jTable1.getValueAt(selectedRow, 1).toString();
+    String lastName = jTable1.getValueAt(selectedRow, 2).toString();
+    String job = jTable1.getValueAt(selectedRow, 3).toString();
+    String dept = jTable1.getValueAt(selectedRow, 4).toString();
+    String salary = jTable1.getValueAt(selectedRow, 5).toString();
+    String status = jTable1.getValueAt(selectedRow, 7).toString();
+
+    // Edit Dialog
+    javax.swing.JDialog dialog = new javax.swing.JDialog((java.awt.Frame) null, "Edit Employee", true);
+    dialog.setSize(400, 350);
+    dialog.setLocationRelativeTo(null);
+    dialog.setLayout(new java.awt.GridLayout(8, 2, 5, 5));
+
+    dialog.add(new javax.swing.JLabel("First Name:"));
+    javax.swing.JTextField tfFirst = new javax.swing.JTextField(firstName);
+    dialog.add(tfFirst);
+
+    dialog.add(new javax.swing.JLabel("Last Name:"));
+    javax.swing.JTextField tfLast = new javax.swing.JTextField(lastName);
+    dialog.add(tfLast);
+
+    dialog.add(new javax.swing.JLabel("Job ID:"));
+    javax.swing.JTextField tfJob = new javax.swing.JTextField(job);
+    dialog.add(tfJob);
+
+    dialog.add(new javax.swing.JLabel("Department:"));
+    javax.swing.JTextField tfDept = new javax.swing.JTextField(dept);
+    dialog.add(tfDept);
+
+    dialog.add(new javax.swing.JLabel("Salary:"));
+    javax.swing.JTextField tfSalary = new javax.swing.JTextField(salary);
+    dialog.add(tfSalary);
+
+    dialog.add(new javax.swing.JLabel("Status:"));
+    javax.swing.JTextField tfStatus = new javax.swing.JTextField(status);
+    dialog.add(tfStatus);
+
+    javax.swing.JButton btnSave = new javax.swing.JButton("Save");
     javax.swing.JButton btnCancel = new javax.swing.JButton("Cancel");
-    
-    javax.swing.JPanel btnPanel = new javax.swing.JPanel();
-    btnPanel.add(btnNext);
-    btnPanel.add(btnCancel);
-    
-    dialog.add(centerPanel, java.awt.BorderLayout.CENTER);
-    dialog.add(btnPanel, java.awt.BorderLayout.SOUTH);
-    
-    btnNext.addActionListener(e -> {
-        // احفظ القيمة الحالية
-        values[currentField[0]] = txtValue.getText().trim();
-        currentField[0]++;
-        
-        if (currentField[0] < fieldNames.length) {
-            // انتقل للحقل التالي
-            lblField.setText(fieldNames[currentField[0]] + ":");
-            txtValue.setText(values[currentField[0]]);
-            if (currentField[0] == fieldNames.length - 1) {
-                btnNext.setText("Save");
-            }
-        } else {
-            // Save بالـ database
-            try {
-                java.sql.Connection conn = DatabaseConnection.getConnection();
-                String sql = "UPDATE EMPLOYEE SET FIRST_NAME=?, LAST_NAME=?, JOB_ID=?, DEPARTMENT=?, SALARY=?, HIRE_DATE=TO_DATE(?, 'YYYY-MM-DD'), STATUS=? WHERE EMP_ID=?";
-                java.sql.PreparedStatement ps = conn.prepareStatement(sql);
-                ps.setString(1, values[0]);
-                ps.setString(2, values[1]);
-                ps.setString(3, values[2]);
-                ps.setString(4, values[3]);
-                ps.setDouble(5, Double.parseDouble(values[4]));
-                ps.setString(6, values[5]);
-                ps.setString(7, values[6]);
-                ps.setInt(8, Integer.parseInt(empId));
-                ps.executeUpdate();
-                ps.close();
-                javax.swing.JOptionPane.showMessageDialog(dialog, "تم التعديل بنجاح ✔");
-                dialog.dispose();
-                loadEmployees(jTable1);
-            } catch (Exception ex) {
-                javax.swing.JOptionPane.showMessageDialog(dialog, ex.getMessage(), "خطأ", javax.swing.JOptionPane.ERROR_MESSAGE);
-            }
+
+    btnSave.addActionListener(e -> {
+        try {
+            String sql = "UPDATE EMPLOYEE SET FIRST_NAME=?, LAST_NAME=?, JOB_ID=?, DEPARTMENT=?, SALARY=?, STATUS=? WHERE EMP_ID=?";
+            PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement(sql);
+            ps.setString(1, tfFirst.getText());
+            ps.setString(2, tfLast.getText());
+            ps.setString(3, tfJob.getText());
+            ps.setString(4, tfDept.getText());
+            ps.setDouble(5, Double.parseDouble(tfSalary.getText()));
+            ps.setString(6, tfStatus.getText());
+            ps.setInt(7, empId);
+            ps.executeUpdate();
+
+            javax.swing.JOptionPane.showMessageDialog(dialog, "Employee updated successfully ✔");
+            dialog.dispose();
+            loadEmployees(jTable1);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(dialog, ex.getMessage());
         }
     });
-    
+
     btnCancel.addActionListener(e -> dialog.dispose());
+
+    dialog.add(btnSave);
+    dialog.add(btnCancel);
     dialog.setVisible(true);
 }
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Employees().setVisible(true);
-            }
-        });
-    }
-
+        
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
