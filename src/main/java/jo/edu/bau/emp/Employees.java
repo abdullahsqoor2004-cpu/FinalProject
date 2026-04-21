@@ -482,27 +482,51 @@ private void showEditDialog(int selectedRow) {
     javax.swing.JButton btnSave = new javax.swing.JButton("Save");
     javax.swing.JButton btnCancel = new javax.swing.JButton("Cancel");
 
-    btnSave.addActionListener(e -> {
-        try {
-            String sql = "UPDATE EMPLOYEE SET FIRST_NAME=?, LAST_NAME=?, JOB_ID=?, DEPARTMENT=?, SALARY=?, STATUS=? WHERE EMP_ID=?";
-            PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement(sql);
-            ps.setString(1, tfFirst.getText());
-            ps.setString(2, tfLast.getText());
-            ps.setString(3, tfJob.getText());
-            ps.setString(4, tfDept.getText());
-            ps.setDouble(5, Double.parseDouble(tfSalary.getText()));
-            ps.setString(6, tfStatus.getText());
-            ps.setInt(7, empId);
-            ps.executeUpdate();
+   btnSave.addActionListener(e -> {
+    try {
+        String sql = "UPDATE EMPLOYEE SET FIRST_NAME=?, LAST_NAME=?, JOB_ID=?, DEPARTMENT=?, SALARY=?, STATUS=? WHERE EMP_ID=?";
+        PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement(sql);
+        ps.setString(1, tfFirst.getText());
+        ps.setString(2, tfLast.getText());
+        ps.setString(3, tfJob.getText());
+        ps.setString(4, tfDept.getText());
+        ps.setDouble(5, Double.parseDouble(tfSalary.getText()));
+        ps.setString(6, tfStatus.getText());
+        ps.setInt(7, empId);
+        ps.executeUpdate();
 
-            javax.swing.JOptionPane.showMessageDialog(dialog, "Employee updated successfully ✔");
-            dialog.dispose();
-            loadEmployees(jTable1);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            javax.swing.JOptionPane.showMessageDialog(dialog, ex.getMessage());
-        }
-    });
+        javax.swing.JOptionPane.showMessageDialog(dialog, "Employee updated successfully ✔");
+        ps.executeUpdate();
+
+            // Update ATTENDANCE_LEAVE
+            java.sql.PreparedStatement ps2 = DatabaseConnection.getConnection().prepareStatement(
+                "UPDATE ATTENDANCE_LEAVE SET FIRST_NAME=?, LAST_NAME=? WHERE EMP_ID=?"
+            );
+            ps2.setString(1, tfFirst.getText());
+            ps2.setString(2, tfLast.getText());
+            ps2.setInt(3, empId);
+            ps2.executeUpdate();
+            ps2.close();
+
+            // Update PAYROLL
+            java.sql.PreparedStatement ps3 = DatabaseConnection.getConnection().prepareStatement(
+                "UPDATE PAYROLL SET FIRST_NAME=?, LAST_NAME=?, JOB_ID=?, BASIC_SALARY=? WHERE EMP_ID=?"
+            );
+            ps3.setString(1, tfFirst.getText());
+            ps3.setString(2, tfLast.getText());
+            ps3.setString(3, tfJob.getText());
+            ps3.setDouble(4, Double.parseDouble(tfSalary.getText()));
+            ps3.setInt(5, empId);
+            ps3.executeUpdate();
+            ps3.close();
+
+        dialog.dispose();
+        loadEmployees(jTable1);
+    } catch (Exception ex) {
+        ex.printStackTrace();
+        javax.swing.JOptionPane.showMessageDialog(dialog, ex.getMessage());
+    }
+});
 
     btnCancel.addActionListener(e -> dialog.dispose());
 
@@ -511,6 +535,15 @@ private void showEditDialog(int selectedRow) {
     dialog.setVisible(true);
 }
         
+public void refresh() {
+    loadEmployees(jTable1);
+    java.awt.Window win = javax.swing.SwingUtilities.getWindowAncestor(this);
+if (win instanceof jo.edu.bau.Dashboard) {
+    jo.edu.bau.Dashboard dash = (jo.edu.bau.Dashboard) win;
+    dash.attPanel.refresh();
+    dash.payPanel.refresh();
+}
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

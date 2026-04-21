@@ -1,21 +1,35 @@
 package jo.edu.bau.utils;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
 
 public class DatabaseConnection {
-    private static Connection conn = null;
+
+    private static Connection conn;
 
     public static Connection getConnection() {
-        if (conn == null) {
-            try {
+
+        try {
+
+            if (conn == null || conn.isClosed()) {
+
                 Class.forName("oracle.jdbc.driver.OracleDriver");
+
                 conn = DriverManager.getConnection(
-                    "jdbc:oracle:thin:@localhost:1521:XE", "hr", "hr"
+                        "jdbc:oracle:thin:@localhost:1521:XE",
+                        "hr",
+                        "hr"
                 );
-            } catch (Exception e) {
-                e.printStackTrace();
+
+                System.out.println("Database Connected ✔");
+
             }
+
+        } catch (Exception e) {
+            System.out.println("Database Connection Error:");
+            e.printStackTrace();
         }
+
         return conn;
     }
 }

@@ -434,19 +434,22 @@ public class Payroll_Details extends javax.swing.JDialog {
     }
 
     public void setPayrollData(String empId, String firstName, String lastName,
-            String job, String dept, String basicSalary) {
-        jTextField1.setText(empId);                      
-        jTextField6.setText(firstName + " " + lastName);  
-        jTextField2.setText(job);                         
-        jTextField7.setText(dept);                         
-        jTextField3.setText(basicSalary);                  
+        String job, String dept, String basicSalary, String allowance, String deduction) {
+    jTextField1.setText(empId);
+    jTextField6.setText(firstName + " " + lastName);
+    jTextField2.setText(job);
+    jTextField7.setText(dept);
+    jTextField3.setText(basicSalary);
+    jTextField8.setText("");
+    jTextField9.setText("");
 
-        jTextField1.setEditable(false);
-        jTextField6.setEditable(false);
-        jTextField2.setEditable(false);
-        jTextField7.setEditable(false);
-        jTextField3.setEditable(false);
-    }
+    jTextField1.setEditable(false);
+    jTextField6.setEditable(false);
+    jTextField2.setEditable(false);
+    jTextField7.setEditable(false);
+    jTextField3.setEditable(false);
+    
+}
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

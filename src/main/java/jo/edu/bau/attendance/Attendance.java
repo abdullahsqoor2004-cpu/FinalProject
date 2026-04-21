@@ -162,20 +162,20 @@ jButton3.setOpaque(true);
         try {
             int empId = Integer.parseInt(input);
 
-            String sql = "SELECT ATTEND_ID, EMP_ID, FIRST_NAME, LAST_NAME, ATTEND_DATE, CHECK_IN, CHECK_OUT, STATUS FROM ATTENDANCE_LEAVE WHERE EMP_ID = ?";
+            String sql = "SELECT EMP_ID, FIRST_NAME, LAST_NAME, ATTEND_DATE, CHECK_IN, CHECK_OUT, STATUS FROM ATTENDANCE_LEAVE WHERE EMP_ID = ?";
             PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement(sql);
             ps.setInt(1, empId);
             ResultSet rs = ps.executeQuery();
 
             DefaultTableModel model = new DefaultTableModel(
-                new String[]{"Attend ID","Emp ID","First Name","Last Name","Date","Check In","Check Out","Status"}, 0
+                new String[]{"Emp ID","First Name","Last Name","Date","Check In","Check Out","Status"}, 0
             );
 
             boolean found = false;
             while (rs.next()) {
                 found = true;
                 model.addRow(new Object[]{
-                    rs.getInt("ATTEND_ID"), rs.getInt("EMP_ID"),
+                    rs.getInt("EMP_ID"),
                     rs.getString("FIRST_NAME"), rs.getString("LAST_NAME"),
                     rs.getDate("ATTEND_DATE"), rs.getString("CHECK_IN"),
                     rs.getString("CHECK_OUT"), rs.getString("STATUS")
@@ -286,7 +286,7 @@ public void addPendingRequest(String empName) {
             javax.swing.JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_jButton3ActionPerformed
-private void loadAttendance(javax.swing.JTable table) {
+public void loadAttendance(javax.swing.JTable table) {
     try {
         String sql = "SELECT ATTEND_ID, EMP_ID, FIRST_NAME, LAST_NAME, ATTEND_DATE, CHECK_IN, CHECK_OUT, STATUS FROM ATTENDANCE_LEAVE";
         PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement(sql);
@@ -319,6 +319,8 @@ private void loadAttendance(javax.swing.JTable table) {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
-
+public void refresh() {
+    loadAttendance(jTable1);
+}
  
 }

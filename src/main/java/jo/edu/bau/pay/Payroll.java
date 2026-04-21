@@ -138,18 +138,34 @@ public class Payroll extends javax.swing.JPanel {
         }
 
         Payroll_Details dialog = new Payroll_Details(null, true);
-        dialog.setPayrollData(
-            jTable1.getValueAt(selectedRow, 1).toString(),
-            jTable1.getValueAt(selectedRow, 2).toString(),
-            jTable1.getValueAt(selectedRow, 3).toString(),
-            jTable1.getValueAt(selectedRow, 4).toString(),
-            jTable1.getValueAt(selectedRow, 5).toString(),
-            jTable1.getValueAt(selectedRow, 6).toString()
-        );
+
+String dept = "";
+try {
+    int empId = Integer.parseInt(jTable1.getValueAt(selectedRow, 0).toString());
+    java.sql.PreparedStatement psDept = jo.edu.bau.utils.DatabaseConnection.getConnection()
+        .prepareStatement("SELECT DEPARTMENT FROM EMPLOYEE WHERE EMP_ID=?");
+    psDept.setInt(1, empId);
+    java.sql.ResultSet rsDept = psDept.executeQuery();
+    if (rsDept.next()) dept = rsDept.getString("DEPARTMENT");
+    psDept.close();
+} catch (Exception ex) {
+    ex.printStackTrace();
+}
+
+dialog.setPayrollData(
+    jTable1.getValueAt(selectedRow, 0).toString(),
+    jTable1.getValueAt(selectedRow, 1).toString(),
+    jTable1.getValueAt(selectedRow, 2).toString(),
+    jTable1.getValueAt(selectedRow, 3).toString(),
+    dept,
+    jTable1.getValueAt(selectedRow, 4).toString(),
+    jTable1.getValueAt(selectedRow, 6).toString(),
+    jTable1.getValueAt(selectedRow, 7).toString()
+);
         dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
-private void loadPayroll(javax.swing.JTable table) {
+public void loadPayroll(javax.swing.JTable table) {
     try {
         String sql = "SELECT EMP_ID, FIRST_NAME, LAST_NAME, JOB_ID, BASIC_SALARY, PAY_DATE, ALLOWANCE, DEDUCTION FROM PAYROLL";
         PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement(sql);
@@ -173,7 +189,9 @@ private void loadPayroll(javax.swing.JTable table) {
     }
 
 }
-
+public void refresh() {
+    loadPayroll(jTable1);
+}
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -185,3 +203,4 @@ private void loadPayroll(javax.swing.JTable table) {
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
+
